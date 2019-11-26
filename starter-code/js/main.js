@@ -43,15 +43,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
   let pairsGuessed = document.getElementById('pairs_guessed');
   let countClicks = 0;
 
+  console.log('Output for: card.onclick -> card', memoryGame.cards);
   allCards.forEach(card => {
     card.onclick = function() {
       if (memoryGame.pickedCards.length < 2) {
         card.classList.add('turned');
         memoryGame.pickedCards.push(card);
-        console.log(
-          'Output for: callOnClickFunction -> memoryGame.pickedCards',
-          memoryGame.pickedCards
-        );
         countClicks += 1;
         let clicks = countClicks;
         if (clicks % 2 === 0) {
@@ -83,9 +80,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   });
   function congrats() {
-    let msg = document.querySelector('body h1');
-    msg.innerHTML = `Yeahhhh, you are Superhero winner!!! You won with ${memoryGame.pairsClicked} pairs of clicks.`;
-
+    // let msg = document.querySelector('body h1');
+    document.querySelector('#memory_board').innerHTML = '';
+    const h1 = document.createElement('h1');
+    document.querySelector('#memory_board').append(h1);
+    h1.innerHTML = `Yeahhhh, you are Superhero winner!!! You won with ${memoryGame.pairsClicked} pairs of clicks.`;
     setTimeout(() => {
       memoryGame.isFinished()
         ? confirm('Would you like to restart the game?')
